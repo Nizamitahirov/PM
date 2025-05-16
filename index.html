@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Management Flowcharts</title>
+    <title>Performance Management Improvement Plan - Flowcharts</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-black: #000000;
-            --main-white: #FFFFFF;
+            --main-black: #080808; /* Slightly off-black */
+            --main-white: #F5F5F5; /* Slightly off-white */
             --main-teal: #01DBC8;
             --comp-teal-dark: #0AAC9E;
             --comp-teal-darker: #1B4E4A;
@@ -16,8 +16,11 @@
             --comp-teal-light: #41E4D6;
             --comp-teal-lighter: #80EDE3;
             --comp-teal-lightest: #C0F6F1;
-            --dark-gray: #2a2a2a; /* Slightly darker than #404040 for more contrast */
-            --medium-gray: #404040;
+            --dark-gray: #1A1A1A; /* For page backgrounds */
+            --medium-gray: #2C2C2C; /* For nodes */
+            --light-gray-text: #B0B0B0;
+            --line-color: var(--comp-teal-dark);
+            --line-thickness: 3px;
         }
 
         body {
@@ -25,18 +28,59 @@
             background-color: var(--main-black);
             color: var(--main-white);
             margin: 0;
-            padding: 25px;
+            padding: 0; /* Full bleed for header */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
+        .header-section {
+            background: linear-gradient(135deg, var(--comp-teal-darker) 0%, var(--dark-gray) 70%);
+            color: var(--main-white);
+            width: 100%;
+            padding: 30px 40px; /* This padding keeps content from hitting edges */
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--main-teal);
+            margin: 0 0 15px 0;
+            border-bottom: 2px solid var(--comp-teal-medium);
+            padding-bottom: 10px;
+        }
+
+        .header-section .case-description p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--comp-teal-lightest);
+            margin-bottom: 20px;
+            /* max-width: 800px; */ /* REMOVED to allow full width within padding */
+        }
+
+        .attribution-block {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--light-gray-text);
+            background-color: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--main-teal);
+        }
+        .attribution-block strong {
+            color: var(--comp-teal-lighter);
+            font-weight: 600;
+        }
+
         .navigation-tabs {
             margin-bottom: 35px;
             display: flex;
             gap: 12px;
-            background-color: var(--comp-teal-darker);
+            background-color: var(--medium-gray); /* Changed tab container bg */
             padding: 12px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -44,56 +88,52 @@
 
         .tab-button {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--medium-gray);
+            background-color: var(--dark-gray);
             color: var(--comp-teal-lightest);
-            border: none;
+            border: 1px solid var(--comp-teal-medium);
             padding: 12px 22px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            font-weight: 500; /* Medium */
-            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
         }
 
         .tab-button:hover {
             background-color: var(--comp-teal-medium);
             color: var(--main-white);
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(1, 219, 200, 0.2);
         }
 
         .tab-button.active {
             background-color: var(--main-teal);
             color: var(--main-black);
-            font-weight: 700; /* Bold */
+            font-weight: 700;
+            border-color: var(--main-teal);
             box-shadow: 0 2px 8px rgba(1, 219, 200, 0.4);
         }
 
         .flowchart-page {
             display: none;
             width: 95%;
-            max-width: 950px;
-            background-color: var(--dark-gray); /* Darker page background */
-            padding: 30px;
+            max-width: 1000px; /* Increased max-width */
+            background-color: var(--dark-gray);
+            padding: 35px;
             border-radius: 18px;
             box-shadow: 0 10px 30px rgba(0,0,0, 0.5);
             animation: fadeIn 0.6s ease-out;
         }
 
-        .flowchart-page.active-page {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .flowchart-page.active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .flowchart-title {
-            font-size: 28px;
-            font-weight: 700; /* Bold */
+            font-size: 30px; /* Increased */
+            font-weight: 700;
             color: var(--main-teal);
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px; /* Increased */
             border-bottom: 3px solid var(--comp-teal-dark);
             padding-bottom: 20px;
             letter-spacing: 0.5px;
@@ -105,174 +145,228 @@
             align-items: center;
         }
 
+        /* --- Node Styling --- */
         .flowchart-node, .flowchart-decision-node, .flowchart-io-node, .flowchart-start-end-node {
+            background-color: var(--medium-gray);
             color: var(--main-white);
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 18px 25px; /* Increased padding */
+            border-radius: 12px; /* More rounded */
             text-align: center;
-            margin: 12px 0;
-            width: 85%;
-            max-width: 420px;
+            margin: 20px 0; /* Increased margin for line space */
+            width: auto; /* Auto width based on content */
+            min-width: 200px;
+            max-width: 450px;
             font-size: 15px;
-            font-weight: 500; /* Medium */
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-weight: 500;
+            position: relative; /* For pseudo-elements and connectors */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            border: 1px solid var(--comp-teal-darker);
             transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
-            border-left: 6px solid var(--main-teal);
         }
         .flowchart-node:hover, .flowchart-decision-node:hover, .flowchart-io-node:hover, .flowchart-start-end-node:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 7px 18px rgba(1, 219, 200, 0.25);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 22px rgba(1, 219, 200, 0.3);
         }
 
-        .flowchart-node { background-color: var(--medium-gray); }
-
         .flowchart-node.tech-ai {
-             border-right: 6px solid var(--comp-teal-light);
+            border-left: 6px solid var(--main-teal);
+            border-right: 6px solid var(--comp-teal-light);
         }
         .flowchart-node .tech-note {
             display: block;
-            font-size: 0.8em;
+            font-size: 0.85em;
             color: var(--comp-teal-lighter);
-            margin-top: 6px;
-            font-weight: 400; /* Regular */
+            margin-top: 8px;
+            font-weight: 400;
             font-style: italic;
-            line-height: 1.3;
+            line-height: 1.4;
         }
         .flowchart-node.highlight {
             background-color: var(--comp-teal-medium);
-            border-left-color: var(--comp-teal-light);
-            font-weight: 600; /* SemiBold */
+            border-color: var(--comp-teal-light);
+            font-weight: 600;
+            color: var(--main-white);
         }
 
         .flowchart-start-end-node {
-            background-color: var(--main-teal);
+            background: linear-gradient(135deg, var(--main-teal), var(--comp-teal-dark));
             color: var(--main-black);
-            font-weight: 700; /* Bold */
-            border-left: none;
-            border-radius: 30px; /* Pill shape */
-            padding: 15px 30px;
+            font-weight: 700;
+            border: none;
+            border-radius: 35px;
+            padding: 18px 35px;
         }
 
         .flowchart-decision-node {
-            background-color: var(--comp-teal-medium);
-            border-left-color: var(--comp-teal-light);
-            width: 260px; /* Fixed width for consistent diamond */
-            height: 130px; /* Fixed height */
-            padding: 0; /* Remove padding, control text via inner div */
+            background-color: var(--comp-teal-darker);
+            border: 1px solid var(--comp-teal-medium);
+            width: 280px;
+            height: 140px;
+            padding: 0;
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .flowchart-decision-node p {
-            margin:0;
-            padding: 10px;
-            max-width: 75%; /* Ensure text doesn't overflow narrow parts */
-            font-weight: 600; /* SemiBold for decision text */
-            line-height: 1.3;
+            margin:0; padding: 10px; max-width: 70%; font-weight: 600; line-height: 1.4; color: var(--comp-teal-lightest);
         }
 
         .flowchart-io-node {
             background-color: var(--comp-teal-dark);
-            border-left-color: var(--comp-teal-lighter);
+            border-color: var(--comp-teal-light);
             transform: skewX(-12deg);
+            padding: 18px 30px;
         }
-        .flowchart-io-node p {
-            transform: skewX(12deg); margin: 0;
-        }
+        .flowchart-io-node p { transform: skewX(12deg); margin: 0; }
 
+        /* --- Connector & Line Styling --- */
         .flowchart-connector {
-            text-align: center;
-            margin: 0px 0;
+            width: var(--line-thickness);
+            background-color: var(--line-color);
+            position: relative; /* Crucial for absolute positioning of arrowheads */
+            margin: 0 auto; /* Center the vertical line */
+            height: 40px; /* Default height, can be overridden */
+        }
+        .flowchart-connector.short { height: 25px; }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 10px solid var(--line-color);
+            position: absolute;
+            bottom: -10px; /* Position at the end of the line */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .branch-connector-setup {
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
-            padding: 8px 0; /* Add some padding for conditions */
+            height: 40px; /* Space for horizontal line and conditions */
         }
-
-        .flowchart-connector .arrow {
-            font-size: 28px; /* Larger, clearer arrow */
-            color: var(--comp-teal-lighter);
-            font-weight: bold;
-            line-height: 1;
-            display: block; /* Ensure it's a block for clean layout */
+        .branch-horizontal-line {
+            height: var(--line-thickness);
+            background-color: var(--line-color);
+            width: 60%; /* Adjust as needed */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-        /* Optional: Use CSS to draw a line above the arrow */
-        .flowchart-connector .arrow::before {
-            content: '';
-            display: block;
-            width: 3px;
-            height: 15px; /* Length of the vertical line */
-            background-color: var(--comp-teal-lighter);
-            margin: 0 auto 5px auto; /* Center the line */
-        }
-
-
-        .flowchart-connector .condition {
+        .condition-label {
             font-size: 0.9em;
             color: var(--main-black);
-            display: inline-block;
-            font-weight: 600; /* SemiBold */
             background-color: var(--comp-teal-lighter);
-            padding: 4px 10px;
-            border-radius: 15px; /* Pill shape for conditions */
-            margin-top: 6px; /* Space from arrow or line */
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1; /* Above the horizontal line */
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        .condition-yes { left: 15%; } /* Adjust positioning */
+        .condition-no { right: 15%; } /* Adjust positioning */
 
         .branch-container {
             display: flex;
-            justify-content: space-around; /* Or space-between */
+            justify-content: space-between; /* To push branches apart */
             align-items: flex-start;
-            width: 100%;
-            margin: 10px 0 15px 0; /* More margin for branches */
+            width: 90%; /* Container for branches */
+            margin: 0 auto 15px auto;
         }
 
         .branch-path {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 48%;
+            width: 45%; /* Each branch takes up space */
+            position: relative;
         }
-        .branch-path > .flowchart-connector:first-child .condition {
-            /* Position condition more clearly at the start of branch */
-            margin-bottom: 8px;
+        /* Vertical line for each branch path connecting to the horizontal bar */
+        .branch-path::before {
+            content: '';
+            position: absolute;
+            top: -20px; /* Connect to the middle of branch-connector-setup's height */
+            left: 50%;
+            transform: translateX(-50%);
+            width: var(--line-thickness);
+            height: 20px; /* Height of this vertical connector */
+            background-color: var(--line-color);
+            z-index: 0;
         }
+
 
         .loop-back-connector {
             text-align: center;
-            margin-top: 20px;
-            padding: 12px 18px;
-            background-color: rgba(27, 78, 74, 0.8); /* var(--comp-teal-darker) with alpha */
-            border: 1.5px dashed var(--comp-teal-dark);
+            margin-top: 25px;
+            padding: 12px 20px;
+            background-color: rgba(27, 78, 74, 0.7);
+            border: 2px dashed var(--comp-teal-dark);
             border-radius: 10px;
             width: auto;
-            max-width: 60%;
+            max-width: 70%;
             margin-left: auto;
             margin-right: auto;
-            cursor: default; /* Or pointer if it were functional */
-            transition: background-color 0.3s, border-color 0.3s;
+            position: relative;
         }
-        .loop-back-connector:hover {
-            background-color: rgba(10, 172, 158, 0.6); /* var(--comp-teal-dark) with alpha */
-            border-color: var(--main-teal);
-        }
-        .loop-back-connector .arrow-loop {
-            font-size: 1em;
-            color: var(--comp-teal-lighter);
+        .loop-back-connector .arrow-loop-text {
+            font-size: 0.95em;
+            color: var(--comp-teal-lightest);
             font-style: italic;
-            font-weight: 500; /* Medium */
+            font-weight: 500;
         }
-         .loop-back-connector .arrow-loop::before {
-            content: '↺ ';
-            font-weight: 700; /* Bold */
-            margin-right: 5px;
+        .loop-back-connector .arrow-loop-text strong {
             color: var(--main-teal);
+            font-weight: 700;
+        }
+        /* Upward arrow for loop */
+        .loop-back-connector::before {
+            content: '↑';
+            font-size: 20px;
+            color: var(--main-teal);
+            font-weight: bold;
+            position: absolute;
+            top: -28px; /* Position above the box */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+         /* Optional: side lines to suggest connection to main flow */
+        .loop-back-connector::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 100%; /* Starts from the top of the loop box */
+            transform: translateX(-50%);
+            width: var(--line-thickness);
+            height: 15px; /* Length of the vertical line upwards from loop box */
+            background-color: var(--line-color);
+            opacity: 0.7;
         }
 
     </style>
 </head>
 <body>
+
+    <div class="header-section">
+        <h1>Performance Management Improvement: Call Center Case</h1>
+        <div class="case-description">
+            <p>This plan addresses declining Human Resource Management (HRM) performance in a sophisticated call center operation. Despite strong operational efficiency (call handling, sales targets), the division faces rising absenteeism (15%), high staff turnover (25% from 15% a year ago), and falling employee engagement. The previous 'sacrificial HR strategy' of hiring young recruits expecting short tenures is no longer viable due to a tighter labor market in Baku, increased competition, and staff preference for remote work. This is now impacting customer service metrics. These flowcharts outline strategies to improve Employee Development, Engagement, and Retention.</p>
+        </div>
+        <div class="attribution-block">
+            <strong>University:</strong> ADA University<br>
+            <strong>Course:</strong> Performance Management<br>
+            <strong>Instructor:</strong> Irana Ahmadova<br>
+            <strong>Team Members:</strong> Nizami Tahirov, Mahiyat Rahmanova, Vladlena Danoy, Leyla Salimbayova, Gunel Huseynova
+        </div>
+    </div>
 
     <div class="navigation-tabs">
         <button class="tab-button active" onclick="showPage('devPage', this)">Employee Development</button>
@@ -284,52 +378,66 @@
     <div id="devPage" class="flowchart-page active-page">
         <h2 class="flowchart-title">Employee Development Process</h2>
         <div class="flowchart-container">
-            <div class="flowchart-start-end-node">START: New / Existing Employee</div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="flowchart-start-end-node" id="devStart">START: New / Existing Employee</div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
 
-            <div class="flowchart-decision-node"><p>New Employee?</p></div>
-            
+            <div class="flowchart-decision-node" id="devIsNew"><p>New Employee?</p></div>
+
+            <div class="branch-connector-setup">
+                <div class="branch-horizontal-line"></div>
+                <div class="condition-label condition-yes">YES</div>
+                <div class="condition-label condition-no">NO</div>
+            </div>
+
             <div class="branch-container">
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
-                    <div class="flowchart-node tech-ai">Structured Onboarding & Foundational Skills <span class="tech-note">AI-LMS: personalized modules, simulations</span></div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                    <div class="flowchart-node">Skills Assessment</div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                     <div class="flowchart-node tech-ai">Individual Development Plan (IDP) <span class="tech-note">AI recommendations via LMS</span></div>
+                    <!-- YES Path -->
+                    <div class="flowchart-node tech-ai" id="devOnboarding">Structured Onboarding & Foundational Skills <span class="tech-note">AI-LMS: personalized modules, simulations</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node" id="devSkillsAssess">Skills Assessment</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node tech-ai" id="devIDP">Individual Development Plan (IDP) <span class="tech-note">AI recommendations via LMS</span></div>
                 </div>
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">NO (Existing)</span><span class="arrow">↘</span></div>
-                    <div class="flowchart-node">Performance Review & Feedback</div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                    <div class="flowchart-node">Identify Development Needs</div>
-                     <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                    <div class="flowchart-node tech-ai">Targeted Training / Mentorship <span class="tech-note">AI: suggests relevant courses/mentors</span></div>
+                    <!-- NO Path -->
+                    <div class="flowchart-node" id="devPerfReview">Performance Review & Feedback</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node" id="devNeedsID">Identify Development Needs</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node tech-ai" id="devTargetTrain">Targeted Training / Mentorship <span class="tech-note">AI: suggests relevant courses/mentors</span></div>
                 </div>
             </div>
 
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-            <div class="flowchart-node">Monitor Training/Development Progress</div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="flowchart-connector short"><div class="arrow-down"></div></div> <!-- Connector to merge branches -->
+            <div class="flowchart-node" id="devMonitorProgress">Monitor Training/Development Progress</div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
 
-            <div class="flowchart-decision-node"><p>Development Goal Achieved?</p></div>
+            <div class="flowchart-decision-node" id="devGoalAchieved"><p>Development Goal Achieved?</p></div>
+             <div class="branch-connector-setup">
+                <div class="branch-horizontal-line"></div>
+                <div class="condition-label condition-yes">YES</div>
+                <div class="condition-label condition-no">NO</div>
+            </div>
+
             <div class="branch-container">
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
-                    <div class="flowchart-node highlight">Advance to Next Level / Specialization / Recognition</div>
-                     <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                    <div class="flowchart-node">Discuss Next Career Path Steps</div>
+                    <!-- YES Path -->
+                    <div class="flowchart-node highlight" id="devAdvance">Advance to Next Level / Specialization / Recognition</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node" id="devNextCareer">Discuss Next Career Path Steps</div>
                 </div>
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">NO</span><span class="arrow">↘</span></div>
-                    <div class="flowchart-node">Provide Additional Support / Corrective Plan</div>
-                    <div class="loop-back-connector"><span class="arrow-loop">Loop to "Monitor Training/Development Progress"</span></div>
+                    <!-- NO Path -->
+                    <div class="flowchart-node" id="devAddSupport">Provide Additional Support / Corrective Plan</div>
+                    <div class="loop-back-connector">
+                        <span class="arrow-loop-text">Loop to: <strong>"Monitor Training/Development Progress"</strong></span>
+                    </div>
                 </div>
             </div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-             <div class="flowchart-node">Offer Mentorship / Cross-Training / Rotation <span class="tech-note">(Voluntary for eligible employees)</span></div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-            <div class="flowchart-start-end-node">END: Culture of Continuous Development</div>
+            <div class="flowchart-connector short"><div class="arrow-down"></div></div>
+            <div class="flowchart-node" id="devOfferMentor">Offer Mentorship / Cross-Training / Rotation <span class="tech-note">(Voluntary for eligible employees)</span></div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
+            <div class="flowchart-start-end-node" id="devEnd">END: Culture of Continuous Development</div>
         </div>
     </div>
 
@@ -338,42 +446,51 @@
         <h2 class="flowchart-title">Employee Engagement Cycle</h2>
         <div class="flowchart-container">
             <div class="flowchart-start-end-node">START</div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-            <div class="flowchart-io-node tech-ai"><p>Gather Employee Feedback <span class="tech-note">AI Pulse Surveys, Sentiment Analysis on Calls</span></p></div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
+            <div class="flowchart-io-node tech-ai" id="engGatherFeedback"><p>Gather Employee Feedback <span class="tech-note">AI Pulse Surveys, Sentiment Analysis on Calls</span></p></div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
             <div class="flowchart-decision-node"><p>Engagement Levels High?</p></div>
 
+            <div class="branch-connector-setup">
+                <div class="branch-horizontal-line"></div>
+                <div class="condition-label condition-yes">YES</div>
+                <div class="condition-label condition-no">NO</div>
+            </div>
             <div class="branch-container">
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
                     <div class="flowchart-node highlight">Reinforce Positive Practices, Celebrate Successes</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-node">Continuous Monitoring & Minor Adjustments</div>
                 </div>
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">NO</span><span class="arrow">↘</span></div>
                     <div class="flowchart-node tech-ai">Analyze Key Issues/Themes <span class="tech-note">AI for text analytics, pattern identification</span></div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-                    <div class="flowchart-node">Prioritize Actionable Problems (e.g., Lack of Recognition)</div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
+                    <div class="flowchart-node" id="engPrioritize">Prioritize Actionable Problems (e.g., Lack of Recognition)</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-node tech-ai">Implement Targeted Initiatives <span class="tech-note">e.g., Gamified Recognition, TL Coaching</span></div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-io-node"><p>Measure Impact of Initiatives</p></div>
-                     <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-decision-node"><p>Improvement Seen?</p></div>
-                     <div class="branch-container">
+                    <div class="branch-connector-setup">
+                        <div class="branch-horizontal-line"></div>
+                        <div class="condition-label condition-yes">YES</div>
+                        <div class="condition-label condition-no">NO</div>
+                    </div>
+                    <div class="branch-container">
                          <div class="branch-path">
-                            <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
                             <div class="flowchart-node">Address Next Priority or Sustain Gains</div>
                          </div>
                          <div class="branch-path">
-                             <div class="flowchart-connector"><span class="condition">NO</span><span class="arrow">↘</span></div>
                              <div class="flowchart-node">Re-evaluate Strategy / Modify Initiatives</div>
                          </div>
                      </div>
                 </div>
             </div>
-            <div class="loop-back-connector"><span class="arrow-loop">Cycle back to "Gather Employee Feedback"</span></div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="loop-back-connector">
+                <span class="arrow-loop-text">Cycle back to: <strong>"Gather Employee Feedback"</strong></span>
+            </div>
+            <div class="flowchart-connector short"><div class="arrow-down"></div></div>
             <div class="flowchart-start-end-node">GOAL: Sustained High Engagement Environment</div>
         </div>
     </div>
@@ -383,44 +500,54 @@
         <h2 class="flowchart-title">Employee Retention Strategy</h2>
         <div class="flowchart-container">
             <div class="flowchart-start-end-node">START</div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-            <div class="flowchart-io-node tech-ai"><p>Analyze Attrition Data & Conduct "Stay Interviews" <span class="tech-note">AI: trend analysis, predictive insights</span></p></div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
+            <div class="flowchart-io-node tech-ai" id="retAnalyzeData"><p>Analyze Attrition Data & Conduct "Stay Interviews" <span class="tech-note">AI: trend analysis, predictive insights</span></p></div>
+            <div class="flowchart-connector"><div class="arrow-down"></div></div>
             <div class="flowchart-decision-node"><p>Primary Reason for Attrition Identified?</p></div>
 
+            <div class="branch-connector-setup">
+                <div class="branch-horizontal-line"></div>
+                <div class="condition-label condition-yes">YES</div>
+                <div class="condition-label condition-no">NO</div>
+            </div>
             <div class="branch-container">
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
-                    <div class="flowchart-node">Select Strategy Based on Reason (e.g., Lack of Development)</div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-node" id="retSelectStrategy">Select Strategy Based on Reason (e.g., Lack of Development)</div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-node">Implement Corrective Actions (e.g., Enhance Dev. Programs)</div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-io-node"><p>Monitor Attrition Trends Post-Action</p></div>
-                    <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                    <div class="flowchart-connector"><div class="arrow-down"></div></div>
                     <div class="flowchart-decision-node"><p>Improvement Observed?</p></div>
+                    <div class="branch-connector-setup">
+                        <div class="branch-horizontal-line"></div>
+                        <div class="condition-label condition-yes">YES</div>
+                        <div class="condition-label condition-no">NO</div>
+                    </div>
                     <div class="branch-container">
                         <div class="branch-path">
-                            <div class="flowchart-connector"><span class="condition">YES</span><span class="arrow">↙</span></div>
                             <div class="flowchart-node highlight">Focus on Next Potential Attrition Driver or Sustain</div>
                         </div>
                         <div class="branch-path">
-                            <div class="flowchart-connector"><span class="condition">NO</span><span class="arrow">↘</span></div>
-                            <div class="flowchart-node">Re-evaluate & Refine Strategy</div>
-                             <div class="loop-back-connector"><span class="arrow-loop">Loop to "Select Strategy Based on Reason"</span></div>
+                             <div class="flowchart-node">Re-evaluate & Refine Strategy</div>
+                             <div class="loop-back-connector">
+                                <span class="arrow-loop-text">Loop to: <strong>"Select Strategy Based on Reason"</strong></span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="branch-path">
-                    <div class="flowchart-connector"><span class="condition">NO (General Dissatisfaction / Multiple Factors)</span><span class="arrow">↘</span></div>
                     <div class="flowchart-node">Focus on Broad Engagement Initiatives (Ref. Engagement Flowchart)</div>
-                     <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+                     <div class="flowchart-connector"><div class="arrow-down"></div></div>
                      <div class="flowchart-node tech-ai">Pilot Flexible Work Options (Cautiously) <span class="tech-note">For eligible, high-performing staff</span></div>
                 </div>
             </div>
-             <div class="flowchart-connector"><span class="arrow">⬇</span></div>
-             <div class="flowchart-node">Benchmark & Adjust Total Rewards Package Competitively</div>
-             <div class="loop-back-connector"><span class="arrow-loop">Continuously "Analyze Attrition Data & Conduct Stay Interviews"</span></div>
-            <div class="flowchart-connector"><span class="arrow">⬇</span></div>
+            <div class="flowchart-connector short"><div class="arrow-down"></div></div>
+            <div class="flowchart-node">Benchmark & Adjust Total Rewards Package Competitively</div>
+            <div class="loop-back-connector">
+                <span class="arrow-loop-text">Continuously: <strong>"Analyze Attrition Data & Conduct Stay Interviews"</strong></span>
+            </div>
+            <div class="flowchart-connector short"><div class="arrow-down"></div></div>
             <div class="flowchart-start-end-node">GOAL: Stable & Motivated Workforce</div>
         </div>
     </div>
@@ -448,7 +575,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            showPage('devPage', document.querySelector('.navigation-tabs .tab-button'));
+            // Ensure the first tab/page is active on load
+            const firstTabButton = document.querySelector('.navigation-tabs .tab-button');
+            if (firstTabButton) {
+                showPage('devPage', firstTabButton); 
+            }
         });
     </script>
 
